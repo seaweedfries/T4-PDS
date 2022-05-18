@@ -27,32 +27,32 @@ col3, col4 = st.columns(2)
 
 
 #button setup
-#GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-#GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-#GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-#GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 #setup linear regression model for number of turns
-#import numpy as np
-#import pandas as pd
-#from sklearn import linear_model
+import numpy as np
+import pandas as pd
+from sklearn import linear_model
 
-#df = pd.read_csv("CoffeeGrounds.csv")
-#x = df[["turn"]]
-#y = df[["weight"]]
-#regr = linear_model.LinearRegression()
-#regr.fit(y.values, x.values)
+df = pd.read_csv("CoffeeGrounds.csv")
+x = df[["turn"]]
+y = df[["weight"]]
+regr = linear_model.LinearRegression()
+regr.fit(y.values, x.values)
 
 #load cell setup
-#referenceUnit = 737
-#hx = HX711(5,6)
-#hx.set_reading_format("MSB", "MSB")
-#hx.set_reference_unit(referenceUnit)
+referenceUnit = 737
+hx = HX711(5,6)
+hx.set_reading_format("MSB", "MSB")
+hx.set_reference_unit(referenceUnit)
 
 #arduino setup
-#uno1 = serial.Serial("/dev/ttyACM1", baudrate = 9600)
-#uno2 = serial.Serial("/dev/ttyACM1", baudrate = 9600)
+uno1 = serial.Serial("/dev/ttyACM1", baudrate = 9600)
+uno2 = serial.Serial("/dev/ttyACM1", baudrate = 9600)
 
 
 
@@ -93,14 +93,14 @@ def dispense(motorSelection, target, ini):
                 if answer == "complete":
                     proceed = True
     
-    #currentWeight = getweight()
-    #amtdispensed = currentWeight - ini
-    #diff = target - amtdispensed
+    currentWeight = getweight()
+    amtdispensed = currentWeight - ini
+    diff = target - amtdispensed
     #print(round(diff,1))
-    #if diff > 0.5:
-    #    dispense(motorSelection, diff, ini)
-    #else:
-    return
+    if diff > 0.5:
+        dispense(motorSelection, diff, ini)
+    else:
+        return
 
 #notification function
 def msg(motors, motorvalues):
@@ -169,11 +169,11 @@ with st.expander("Custom Recipe"):
             st.write('Motor Selected:', motorselect, 'Weight Selected', weightval)
             msg([motorselect], [weightval])
 
-#placeholder = st.empty()
-#if placeholder.button('hide'):
-    #GPIO.add_event_detect(18, GPIO.RISING, callback=button_callback1, bouncetime = 1000)
-    #GPIO.add_event_detect(22, GPIO.RISING, callback=button_callback2, bouncetime = 1000)
-    #GPIO.add_event_detect(27, GPIO.RISING, callback=button_callback3, bouncetime = 1000)
-    #GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback4, bouncetime = 1000)
-    #Tare()
-    #placeholder.empty()
+placeholder = st.empty()
+if placeholder.button('hide'):
+    GPIO.add_event_detect(18, GPIO.RISING, callback=button_callback1, bouncetime = 1000)
+    GPIO.add_event_detect(22, GPIO.RISING, callback=button_callback2, bouncetime = 1000)
+    GPIO.add_event_detect(27, GPIO.RISING, callback=button_callback3, bouncetime = 1000)
+    GPIO.add_event_detect(17, GPIO.RISING, callback=button_callback4, bouncetime = 1000)
+    Tare()
+    placeholder.empty()
