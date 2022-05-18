@@ -18,8 +18,6 @@ footer {visibility: hidden;}
 #GPIO.setmode(GPIO.BCM)
 
 #interface setup
-st.image(image1)
-st.image(image2)
 notify = st.empty()
 col1, col2 = st.columns(2)
 
